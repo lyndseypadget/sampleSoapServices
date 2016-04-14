@@ -1,0 +1,51 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from CarServiceService WSDL service -->
+
+  <service name="CarService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://car.sprint.vml.com"/>
+      <parameter name="wsdlServiceElement" value="CarServiceService"/>
+      <parameter name="schemaQualified" value="http://models.car.sprint.vml.com,http://car.sprint.vml.com"/>
+      <parameter name="wsdlServicePort" value="CarService"/>
+      <parameter name="className" value="com.vml.sprint.car.CarServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="CarService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getCar" qname="operNS:getCar" xmlns:operNS="http://car.sprint.vml.com" returnQName="retNS:getCarReturn" xmlns:retNS="http://car.sprint.vml.com" returnType="rtns:Car" xmlns:rtns="http://models.car.sprint.vml.com" soapAction="" >
+      </operation>
+      <parameter name="allowedMethods" value="getCar"/>
+
+      <arrayMapping
+        xmlns:ns="http://car.sprint.vml.com"
+        qname="ns:ArrayOf_tns1_Wheel"
+        type="java:com.vml.sprint.car.models.Wheel[]"
+        innerType="cmp-ns:Wheel" xmlns:cmp-ns="http://models.car.sprint.vml.com"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://models.car.sprint.vml.com"
+        qname="ns:Wheel"
+        type="java:com.vml.sprint.car.models.Wheel"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://models.car.sprint.vml.com"
+        qname="ns:Car"
+        type="java:com.vml.sprint.car.models.Car"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

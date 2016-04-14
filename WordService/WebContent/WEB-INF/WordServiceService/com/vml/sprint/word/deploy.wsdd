@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from WordServiceService WSDL service -->
+
+  <service name="WordService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://word.sprint.vml.com"/>
+      <parameter name="wsdlServiceElement" value="WordServiceService"/>
+      <parameter name="schemaQualified" value="http://word.sprint.vml.com"/>
+      <parameter name="wsdlServicePort" value="WordService"/>
+      <parameter name="className" value="com.vml.sprint.word.WordService"/>
+      <parameter name="wsdlPortType" value="WordService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://word.sprint.vml.com" xmlns:retNS="http://word.sprint.vml.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="concatenate" qname="operNS:concatenate" returnQName="retNS:concatenateReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://word.sprint.vml.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:s1" type="tns:string"/>
+        <parameter xmlns:pns="http://word.sprint.vml.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:s2" type="tns:string"/>
+        <parameter xmlns:pns="http://word.sprint.vml.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:s3" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://word.sprint.vml.com" xmlns:retNS="http://word.sprint.vml.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="sayHello" qname="operNS:sayHello" returnQName="retNS:sayHelloReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://word.sprint.vml.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:s" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://word.sprint.vml.com" xmlns:retNS="http://word.sprint.vml.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="reverse" qname="operNS:reverse" returnQName="retNS:reverseReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://word.sprint.vml.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:s" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="concatenate sayHello reverse"/>
+
+  </service>
+</deployment>

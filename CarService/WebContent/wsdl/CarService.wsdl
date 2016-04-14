@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://car.sprint.vml.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://car.sprint.vml.com" xmlns:intf="http://car.sprint.vml.com" xmlns:tns1="http://models.car.sprint.vml.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://car.sprint.vml.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://models.car.sprint.vml.com"/>
+   <element name="getCar">
+    <complexType/>
+   </element>
+   <element name="getCarResponse">
+    <complexType>
+     <sequence>
+      <element name="getCarReturn" type="tns1:Car"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_tns1_Wheel">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns1:Wheel"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://models.car.sprint.vml.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://car.sprint.vml.com"/>
+   <complexType name="Wheel">
+    <sequence>
+     <element name="diameter" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="Car">
+    <sequence>
+     <element name="wheel" nillable="true" type="impl:ArrayOf_tns1_Wheel"/>
+     <element name="driver" nillable="true" type="xsd:string"/>
+     <element name="color" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getCarResponse">
+
+      <wsdl:part element="impl:getCarResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCarRequest">
+
+      <wsdl:part element="impl:getCar" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="CarService">
+
+      <wsdl:operation name="getCar">
+
+         <wsdl:input message="impl:getCarRequest" name="getCarRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getCarResponse" name="getCarResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="CarServiceSoapBinding" type="impl:CarService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getCar">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getCarRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getCarResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="CarServiceService">
+
+      <wsdl:port binding="impl:CarServiceSoapBinding" name="CarService">
+
+         <wsdlsoap:address location="http://localhost:8080/CarService/services/CarService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
